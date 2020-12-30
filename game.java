@@ -385,4 +385,170 @@ class Game extends Object {
       }
     }
   }
+///////////////////////////////////////////////////////////////
+  private class GamePanel
+      extends Container {
+    //Create the Game's interface
 
+    private Dimension size = null;
+
+    private Label scoreLabel = new Label("Score: 0");
+   
+    private Label TextClockLabel= new Label("Time: 00:00:00");
+
+    private Label levelLabel = new Label("Level: 1");
+
+    private JButton button = new JButton("Start");
+
+    public GamePanel() {
+      super();
+      initComponents();
+    }
+
+    public void paint(Graphics g) {
+      Rectangle rect = g.getClipBounds();
+
+      if (size == null || !size.equals(getSize())) {
+        size = getSize();
+        resizeComponents();
+      }
+      g.setColor(getBackground());
+      g.fillRect(rect.x, rect.y, rect.width, rect.height);
+      super.paint(g);
+    }
+
+    private void initComponents() {
+      GridBagConstraints c;
+
+      // Set layout manager and background
+      setLayout(new GridBagLayout());
+      setBackground(Configuration.getColor("background", "#ffffcc"));
+
+      // Add game board
+      c = new GridBagConstraints();
+      c.gridx = 0;
+      c.gridy = 0;
+      c.gridheight = 4;
+      c.weightx = 1.0;
+      c.weighty = 1.0;
+      c.fill = GridBagConstraints.BOTH;
+      this.add(board.getComponent(), c);
+
+      // Add next figure board
+      c = new GridBagConstraints();
+      c.gridx = 1;
+      c.gridy = 0;
+      c.weightx = 0.2;
+      c.weighty = 0.18;
+      c.fill = GridBagConstraints.BOTH;
+      c.insets = new Insets(15, 15, 0, 15);
+      this.add(previewBoard.getComponent(), c);
+
+      // Add score label
+      scoreLabel.setForeground(Configuration.getColor("label",
+          "#000000"));
+      scoreLabel.setAlignment(Label.CENTER);
+      c = new GridBagConstraints();
+      c.gridx = 1;
+      c.gridy = 1;
+      c.weightx = 0.3;
+      c.weighty = 0.05;
+      c.anchor = GridBagConstraints.CENTER;
+      c.fill = GridBagConstraints.BOTH;
+      c.insets = new Insets(0, 15, 0, 15);
+      this.add(scoreLabel, c);
+	  
+      // Add level label
+      levelLabel.setForeground(Configuration.getColor("label",
+          "#000000"));
+      levelLabel.setAlignment(Label.CENTER);
+      c = new GridBagConstraints();
+      c.gridx = 1;
+      c.gridy = 2;
+      c.weightx = 0.3;
+      c.weighty = 0.05;
+      c.anchor = GridBagConstraints.CENTER;
+      c.fill = GridBagConstraints.BOTH;
+      c.insets = new Insets(15, 15, 15, 15);
+      this.add(levelLabel, c);
+      
+      // Add time label
+      levelLabel.setForeground(Configuration.getColor("label",
+          "#000000"));
+      levelLabel.setAlignment(Label.CENTER);
+      c = new GridBagConstraints();
+      c.gridx = 1;
+      c.gridy = 2;
+      c.weightx = 0.3;
+      c.weighty = 0.05;
+      c.anchor = GridBagConstraints.CENTER;
+      c.fill = GridBagConstraints.BOTH;
+      c.insets = new Insets(15, 15, 15, 15);
+      this.add(TextClockLabel, c);
+      
+      // Add generic button
+      button.setBackground(Configuration.getColor("button"," "));
+      c = new GridBagConstraints();
+      c.gridx = 1;
+      c.gridy = 3;
+      c.weightx = 0.3;
+      c.weighty = 1.0;
+      c.anchor = GridBagConstraints.NORTH;
+      c.fill = GridBagConstraints.HORIZONTAL;
+      c.insets = new Insets(15, 15, 15, 15);
+      this.add(button, c);
+
+      // Add event handling
+      enableEvents(KeyEvent.KEY_EVENT_MASK);
+      this.addKeyListener(new KeyAdapter() {
+        public void keyPressed(KeyEvent e) {
+          handleKeyEvent(e);
+        }
+      });
+      button.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+          handleButtonPressed();
+          component.requestFocus();
+        }
+      });
+    }
+
+    /*
+      Resizes all the static components, and invalidates the
+      current layout.
+     */
+    private void resizeComponents() {
+      Dimension size = scoreLabel.getSize();
+      Font font;
+      int unitSize;
+
+      // Calculate the unit size
+      size = board.getComponent().getSize();
+      size.width /= board.getBoardWidth();
+      size.height /= board.getBoardHeight();
+      if (size.width > size.height) {
+        unitSize = size.height;
+      }
+      else {
+        unitSize = size.width;
+      }
+
+      // Adjust font sizes
+      font = new Font("SansSerif",
+                      Font.BOLD,
+                      3 + (int) (unitSize / 1.8));
+      scoreLabel.setFont(font);
+      levelLabel.setFont(font);
+      font = new Font("SansSerif",
+                      Font.PLAIN,
+                      2 + unitSize / 2);
+      button.setFont(font);
+
+      // Invalidate layout
+      scoreLabel.invalidate();
+      levelLabel.invalidate();
+      TextClockLabel.invalidate();
+      button.invalidate();
+    }
+  }
+}
