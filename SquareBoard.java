@@ -199,7 +199,7 @@ public class SquareBoard
       setBackground(Configuration.getColor("board.background",
                                            "#0000000"));
       messageColor = Configuration.getColor("board.message",
-                                            "#ffffff");
+                                            "#FF0000");
     }
 
     public void invalidateSquare(int x, int y) {
