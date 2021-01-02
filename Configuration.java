@@ -1,8 +1,7 @@
 import java.util.*;
 import java.awt.*;
 
-public class Configuration
-    extends Object {
+public class Configuration  extends Object {
   /*
     Receive the parameters and put to the board in order to set the color for each brick
    */
