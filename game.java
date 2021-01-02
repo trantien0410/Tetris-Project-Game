@@ -109,7 +109,7 @@ class Game extends Object {
     nextFigure = null;
 
     // Handle components
-    board.setMessage("MẤY THẰNG GÀ !!");
+    board.setMessage("Game Over !!");
     component.button.setLabel("Start");
   }
 
@@ -487,7 +487,7 @@ class Game extends Object {
       this.add(TextClockLabel, c);
       
       // Add generic button
-      button.setBackground(Configuration.getColor("button"," "));
+      button.setBackground(Color.LIGHT_GRAY);
       c = new GridBagConstraints();
       c.gridx = 1;
       c.gridy = 3;
