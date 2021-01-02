@@ -6,8 +6,7 @@ import java.awt.event.*;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Main
-    extends Applet {
+public class Main  extends Applet {
   /*
     Class to configure to run Game by Applet
    */
@@ -53,10 +52,15 @@ public class Main
   private Game game = null;
 
   public static void main(String[] args) {
-    JFrame frame = new JFrame("Tetris Advance");
+    JFrame frame = new JFrame("Tetris Chicken Brothers");
     Game game = new Game();
     frame.setLocation(500, 200);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+    // Set Icon frame
+    ImageIcon image = new ImageIcon("images.png");
+    frame.setIconImage(image.getImage());
+
     // Set up frame
     frame.add(game.getComponent());
     frame.pack();
@@ -99,8 +103,7 @@ public class Main
     game.quit();
   }
 
-  public static class COMClassObject
-      extends Object {
+  public static class COMClassObject extends Object {
 
   }
 }
