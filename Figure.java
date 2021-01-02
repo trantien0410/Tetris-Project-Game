@@ -1,7 +1,6 @@
 import java.awt.*;
 
-public class Figure
-    extends Object {
+public class Figure  extends Object {
   /* Simply declare about the shape, the color of bricks
     Move functions (left, right, down, up) of the brick
   */
