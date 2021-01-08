@@ -17,8 +17,8 @@ class Game extends Object {
 
   private Figure[] figures = { new Figure(Figure.SQUARE_FIGURE), new Figure(Figure.LINE_FIGURE),
       new Figure(Figure.S_FIGURE), new Figure(Figure.Z_FIGURE), new Figure(Figure.RIGHT_ANGLE_FIGURE),
-      new Figure(Figure.LEFT_ANGLE_FIGURE), new Figure(Figure.TRIANGLE_FIGURE),
-      new Figure(Figure.POINTS_FIGURE), new Figure(Figure.NEW_FIGURE), };
+      new Figure(Figure.LEFT_ANGLE_FIGURE), new Figure(Figure.TRIANGLE_FIGURE), new Figure(Figure.POINTS_FIGURE),
+      new Figure(Figure.NEW_FIGURE), };
 
   private GamePanel component = null;
 
@@ -27,7 +27,6 @@ class Game extends Object {
   private int level = 1;
 
   private int score = 0;
-
 
   private Figure figure = null;
 
@@ -38,7 +37,6 @@ class Game extends Object {
   private boolean preview = true;
 
   private boolean moveLock = false;
-
 
   public Game() {
     this(10, 20);
@@ -150,7 +148,6 @@ class Game extends Object {
     component.scoreLabel.setText("Score: " + score);
   }
 
-  
   // Start to begin
   private void handleFigureStart() {
     int rotation;
@@ -206,7 +203,7 @@ class Game extends Object {
       if (level == 10) {
         thread.setPaused(true);
         handleFinish();
-        
+
       }
       handleScoreModification();
 
@@ -265,11 +262,13 @@ class Game extends Object {
         figure.moveRight();// Move right
         break;
       // Down
-      case KeyEvent.VK_DOWN:// If we press Key Down, the brick moves to the ground
+      case KeyEvent.VK_UP:// If we press Key Down, the brick moves to the ground
         figure.moveAllWayDown();
         break;
       // Key Up + space = Rotate
-      case KeyEvent.VK_UP:
+      case KeyEvent.VK_DOWN:
+        figure.moveDown();
+        break;
       case KeyEvent.VK_SPACE:
         if (e.isControlDown()) {
           figure.rotateRandom();
@@ -372,15 +371,16 @@ class Game extends Object {
       }
     }
   }
-///////////////////////////////////////////////////////////////
+
+  ///////////////////////////////////////////////////////////////
   private class GamePanel extends Container {
-    //Create the Game's interface
+    // Create the Game's interface
 
     private Dimension size = null;
 
     private Label scoreLabel = new Label("Score: 0");
-   
-    private Label TextClockLabel= new Label("Time: 00:00:00");
+
+    private Label TextClockLabel = new Label("Time: 00:00:00");
 
     private Label levelLabel = new Label("Level: 1");
 
@@ -431,8 +431,7 @@ class Game extends Object {
       this.add(previewBoard.getComponent(), c);
 
       // Add score label
-      scoreLabel.setForeground(Configuration.getColor("label",
-          "#000000"));
+      scoreLabel.setForeground(Configuration.getColor("label", "#000000"));
       scoreLabel.setAlignment(Label.CENTER);
       c = new GridBagConstraints();
       c.gridx = 1;
@@ -443,10 +442,9 @@ class Game extends Object {
       c.fill = GridBagConstraints.BOTH;
       c.insets = new Insets(0, 15, 0, 15);
       this.add(scoreLabel, c);
-	  
+
       // Add level label
-      levelLabel.setForeground(Configuration.getColor("label",
-          "#000000"));
+      levelLabel.setForeground(Configuration.getColor("label", "#000000"));
       levelLabel.setAlignment(Label.CENTER);
       c = new GridBagConstraints();
       c.gridx = 1;
@@ -457,10 +455,9 @@ class Game extends Object {
       c.fill = GridBagConstraints.BOTH;
       c.insets = new Insets(15, 15, 15, 15);
       this.add(levelLabel, c);
-      
+
       // Add time label
-      levelLabel.setForeground(Configuration.getColor("label",
-          "#000000"));
+      levelLabel.setForeground(Configuration.getColor("label", "#000000"));
       levelLabel.setAlignment(Label.CENTER);
       c = new GridBagConstraints();
       c.gridx = 1;
@@ -471,7 +468,7 @@ class Game extends Object {
       c.fill = GridBagConstraints.BOTH;
       c.insets = new Insets(15, 15, 15, 15);
       this.add(TextClockLabel, c);
-      
+
       // Add generic button
       button.setBackground(Color.LIGHT_GRAY);
       c = new GridBagConstraints();
@@ -500,8 +497,7 @@ class Game extends Object {
     }
 
     /*
-      Resizes all the static components, and invalidates the
-      current layout.
+     * Resizes all the static components, and invalidates the current layout.
      */
     private void resizeComponents() {
       Dimension size = scoreLabel.getSize();
@@ -514,20 +510,15 @@ class Game extends Object {
       size.height /= board.getBoardHeight();
       if (size.width > size.height) {
         unitSize = size.height;
-      }
-      else {
+      } else {
         unitSize = size.width;
       }
 
       // Adjust font sizes
-      font = new Font("SansSerif",
-                      Font.BOLD,
-                      3 + (int) (unitSize / 1.8));
+      font = new Font("SansSerif", Font.BOLD, 3 + (int) (unitSize / 1.8));
       scoreLabel.setFont(font);
       levelLabel.setFont(font);
-      font = new Font("SansSerif",
-                      Font.PLAIN,
-                      2 + unitSize / 2);
+      font = new Font("SansSerif", Font.PLAIN, 2 + unitSize / 2);
       button.setFont(font);
 
       // Invalidate layout
