@@ -1,8 +1,7 @@
 import java.util.*;
 import java.awt.*;
 
-public class SquareBoard
-    extends Object {
+public class SquareBoard extends Object {
   /*
    Check the row full or not... If full, remove this row and calculate the point
     */
