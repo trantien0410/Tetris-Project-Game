@@ -21,8 +21,6 @@ public class Figure  extends Object {
   
   public static final int POINTS_FIGURE = 8;
   
-//  public static final int L_FIGURE = 9;
-  
   public static final int NEW_FIGURE = 9;
 
   private SquareBoard board = null;
@@ -145,17 +143,7 @@ public class Figure  extends Object {
     	shapeX[0] = 0;
     	shapeY[0] = 0;
         break;
-/*      case L_FIGURE:
-      	maxOrientation = 4;
-      	color = Configuration.getColor("figure.l", "#ff8000" );
-      	shapeX[0] = -1;
-        shapeY[0] = 0;
-        shapeX[1] = 0;
-        shapeY[1] = 0;
-        shapeX[2] = 0;
-        shapeY[2] = 1;
-        break;
-       */ 
+
        case NEW_FIGURE:
        	maxOrientation = 1;
        	color = Configuration.getColor("figure.add","#ffccc0");
