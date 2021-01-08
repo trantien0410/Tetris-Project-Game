@@ -5,11 +5,11 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.*;
+import java.io.*;
 
-public class Main  extends Applet {
-  /*
-    Class to configure to run Game by Applet
-   */
+public class Main  {
+ 
   private static final String PARAMETER[][] = {
       {
       "tetris.color.background", "color",
@@ -49,11 +49,12 @@ public class Main  extends Applet {
       "The color of the triangle figure."}
   };
 
-  private Game game = null;
+  //private Game game = null;
 
   public static void main(String[] args) {
+    init();
     JFrame frame = new JFrame("Tetris Chicken Brothers");
-    Game game = new Game();
+    final Game game = new Game();
     frame.setLocation(500, 200);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -69,6 +70,7 @@ public class Main  extends Applet {
     frame.addWindowListener(new WindowAdapter() {
       public void windowClosing(WindowEvent e) {
         System.exit(0);
+        game.quit();
       }
     });
 
@@ -76,34 +78,25 @@ public class Main  extends Applet {
     frame.show();
   }
 
-  public String[][] getParameterInfo() {
-    return PARAMETER;
-  }
+  public static void init() {
+    try {
+      FileReader reader = new FileReader("game.properties");
+      Properties properties = new Properties();
+      properties.load(reader);
 
-  public void init() {
-    String value;
+      String value;
 
-    // Set all configuration parameters
-    for (int i = 0; i < PARAMETER.length; i++) {
-      value = getParameter(PARAMETER[i][0]);
-      if (value != null) {
-        Configuration.setValue(PARAMETER[i][0], value);
+      // Set all configuration parameters
+      for (int i = 0; i < PARAMETER.length; i++) {
+        value = properties.getProperty(PARAMETER[i][0]);
+        if (value != null) {
+          Configuration.setValue(PARAMETER[i][0], value);
+        }
       }
+
+    } catch (Exception e) {
+      e.printStackTrace();
     }
-
-    // Create game object
-    game = new Game();
-
-    // Initialize applet component
-    setLayout(new BorderLayout());
-    add(game.getComponent(), "Center");
   }
-
-  public void stop() {
-    game.quit();
-  }
-
-  public static class COMClassObject extends Object {
-
-  }
+    
 }
