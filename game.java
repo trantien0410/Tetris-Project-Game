@@ -18,7 +18,6 @@ class Game extends Object {
   private Figure[] figures = { new Figure(Figure.SQUARE_FIGURE), new Figure(Figure.LINE_FIGURE),
       new Figure(Figure.S_FIGURE), new Figure(Figure.Z_FIGURE), new Figure(Figure.RIGHT_ANGLE_FIGURE),
       new Figure(Figure.LEFT_ANGLE_FIGURE), new Figure(Figure.TRIANGLE_FIGURE),
-      // new Figure(Figure.L_FIGURE),
       new Figure(Figure.POINTS_FIGURE), new Figure(Figure.NEW_FIGURE), };
 
   private GamePanel component = null;
@@ -29,7 +28,6 @@ class Game extends Object {
 
   private int score = 0;
 
-  private int times = 0;
 
   private Figure figure = null;
 
@@ -37,17 +35,10 @@ class Game extends Object {
 
   private int nextRotation = 0;
 
-  private int h = 0, m = 0, s = 0;
-
-  private Calendar now = Calendar.getInstance();
-
   private boolean preview = true;
 
   private boolean moveLock = false;
 
-  private JTextField txtTime = new JTextField(5);
-
-  private JPanel content = new JPanel();
 
   public Game() {
     this(10, 20);
@@ -116,7 +107,7 @@ class Game extends Object {
   // Finish and start to play again
   private void handleFinish() {
 
-    // Stop game thred
+    // Stop game thread
     thread.setPaused(true);
 
     // Reset figures
@@ -159,11 +150,7 @@ class Game extends Object {
     component.scoreLabel.setText("Score: " + score);
   }
 
-  // Set time for interface
-  /*
-   * private void handleTimesModification(){
-   * component.timesLabel.setText("Times:"+times); }
-   */
+  
   // Start to begin
   private void handleFigureStart() {
     int rotation;
@@ -219,7 +206,7 @@ class Game extends Object {
       if (level == 10) {
         thread.setPaused(true);
         handleFinish();
-        // component.button.setEnabled(false);
+        
       }
       handleScoreModification();
 
@@ -386,8 +373,7 @@ class Game extends Object {
     }
   }
 ///////////////////////////////////////////////////////////////
-  private class GamePanel
-      extends Container {
+  private class GamePanel extends Container {
     //Create the Game's interface
 
     private Dimension size = null;
