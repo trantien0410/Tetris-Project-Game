@@ -49,7 +49,6 @@ public class Main  {
       "The color of the triangle figure."}
   };
 
-  //private Game game = null;
 
   public static void main(String[] args) {
     init();
@@ -65,7 +64,6 @@ public class Main  {
     // Set up frame
     frame.add(game.getComponent());
     frame.pack();
-//    new Dongho();
     // Add frame window listener
     frame.addWindowListener(new WindowAdapter() {
       public void windowClosing(WindowEvent e) {
